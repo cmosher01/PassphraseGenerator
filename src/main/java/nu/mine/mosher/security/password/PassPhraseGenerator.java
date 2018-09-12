@@ -1,19 +1,14 @@
 package nu.mine.mosher.security.password;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.lang.String.join;
 
 public class PassPhraseGenerator {
-    public static void main(final String... args) throws URISyntaxException, IOException {
+    public static void main(final String... args) throws IOException {
         final int COUNT_WORDS_GENERATE = 6;
 
         final int countWordsDictionary = countWordsInDictionary();
@@ -36,10 +31,10 @@ public class PassPhraseGenerator {
             .collect(Collectors.toList());
     }
 
-    private static List<String> getWords(final List<Integer> chosen) throws URISyntaxException, IOException {
+    private static List<String> getWords(final List<Integer> chosen) throws IOException {
         final String[] w = new String[chosen.size()];
-        try (final LineNumberReader in = new LineNumberReader(new InputStreamReader(Files.newInputStream(pathDictionary())))) {
-            filterWords(in, chosen, w);
+        try (final LineNumberReader dict = new LineNumberReader(dictionary())) {
+            filterWords(dict, chosen, w);
         }
         return List.of(w);
     }
@@ -60,11 +55,13 @@ public class PassPhraseGenerator {
         return lin.replaceFirst(REGEX_DICEWARE_FORMAT, "$1");
     }
 
-    private static int countWordsInDictionary() throws URISyntaxException, IOException {
-        return (int)Files.lines(pathDictionary()).count();
+    private static int countWordsInDictionary() throws IOException {
+        try (final BufferedReader dict = new BufferedReader(dictionary())) {
+            return (int)dict.lines().count();
+        }
     }
 
-    private static Path pathDictionary() throws URISyntaxException {
-        return Paths.get(PassPhraseGenerator.class.getResource("/dictionary.txt").toURI());
+    private static InputStreamReader dictionary() {
+        return new InputStreamReader(PassPhraseGenerator.class.getResourceAsStream("/dictionary.txt"));
     }
 }
