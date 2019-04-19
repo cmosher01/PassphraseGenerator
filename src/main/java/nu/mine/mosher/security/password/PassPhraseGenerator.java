@@ -9,7 +9,7 @@ import static java.lang.String.join;
 
 public class PassPhraseGenerator {
     public static void main(final String... args) throws IOException {
-        final int COUNT_WORDS_GENERATE = 6;
+        final int COUNT_WORDS_GENERATE = 7;
 
         final int countWordsDictionary = countWordsInDictionary();
 
