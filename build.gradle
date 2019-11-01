@@ -1,20 +1,7 @@
-repositories {
-    mavenCentral()
+def inc(module) {
+    apply from: "${projectDir}/gradle/${module}.gradle"
 }
 
-apply plugin: 'java'
-apply plugin: 'application'
-
-test {
-    useJUnitPlatform()
-}
-
-dependencies {
-    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: 'latest.release'
-    testRuntime group: "org.junit.jupiter", name: "junit-jupiter-engine", version: 'latest.release'
-}
-
-group = 'nu.mine.mosher.security.password'
-mainClassName = 'nu.mine.mosher.security.password.PassPhraseGenerator'
-sourceCompatibility = '1.8'
-version = '1.0.0-SNAPSHOT'
+inc('version')
+inc('project')
+inc('dependencies')

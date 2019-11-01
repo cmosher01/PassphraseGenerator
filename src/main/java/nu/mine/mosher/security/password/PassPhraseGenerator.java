@@ -36,7 +36,7 @@ public class PassPhraseGenerator {
         try (final LineNumberReader dict = new LineNumberReader(dictionary())) {
             filterWords(dict, chosen, w);
         }
-        return List.of(w);
+        return Arrays.asList(w);
     }
 
     private static void filterWords(final LineNumberReader in, final List<Integer> chosen, final String[] w) throws IOException {
