@@ -1,7 +1,17 @@
-def inc(module) {
-    apply from: "${projectDir}/gradle/${module}.gradle"
+plugins {
+    id 'application'
 }
 
-inc('version')
-inc('project')
-inc('dependencies')
+group = 'nu.mine.mosher.security.password'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of 8
+    }
+}
+
+application {
+    mainClass.set 'nu.mine.mosher.security.password.PassPhraseGenerator'
+}
+
+version = '1.0.0'

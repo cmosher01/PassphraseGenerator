@@ -12,5 +12,5 @@ Small, simple, straightforward.
 Requires Java (version 8 or higher).
 
 ```sh
-$ ./gradlew build run
+$ ./gradlew run
 ```
