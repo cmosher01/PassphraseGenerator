@@ -1,17 +1,21 @@
 plugins {
-    id 'application'
+    id 'org.beryx.runtime' version '1.12.7'
 }
+
+version = '1.0.1'
 
 group = 'nu.mine.mosher.security.password'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of 8
+        languageVersion = JavaLanguageVersion.of 17
     }
 }
 
 application {
-    mainClass.set 'nu.mine.mosher.security.password.PassPhraseGenerator'
+    mainClass = 'nu.mine.mosher.security.password.PassPhraseGenerator'
 }
 
-version = '1.0.0'
+assemble {
+    dependsOn tasks.jpackage
+}
